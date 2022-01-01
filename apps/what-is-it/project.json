@@ -1,0 +1,74 @@
+{
+  "root": "apps/what-is-it",
+  "sourceRoot": "apps/what-is-it/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/what-is-it",
+        "index": "apps/what-is-it/src/index.html",
+        "baseHref": "/",
+        "main": "apps/what-is-it/src/main.tsx",
+        "polyfills": "apps/what-is-it/src/polyfills.ts",
+        "tsConfig": "apps/what-is-it/tsconfig.app.json",
+        "assets": [
+          "apps/what-is-it/src/favicon.ico",
+          "apps/what-is-it/src/assets"
+        ],
+        "styles": ["apps/what-is-it/src/styles.scss"],
+        "scripts": [],
+        "webpackConfig": "@nrwl/react/plugins/webpack"
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/what-is-it/src/environments/environment.ts",
+              "with": "apps/what-is-it/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/web:dev-server",
+      "options": {
+        "buildTarget": "what-is-it:build",
+        "hmr": true,
+        "proxyConfig": "apps/what-is-it/proxy.conf.json"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "what-is-it:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/what-is-it/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/what-is-it"],
+      "options": {
+        "jestConfig": "apps/what-is-it/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
